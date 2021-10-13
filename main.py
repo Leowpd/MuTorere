@@ -1,7 +1,7 @@
 import turtle, random, time
 #sets up screen
-testscreen = turtle.Screen()
-testscreen.setup(700, 700)
+screen = turtle.Screen()
+screen.setup(700, 700)
 
 #draws the board
 def drawboard():
@@ -30,6 +30,7 @@ def drawboard():
     t.pu()
     t.fd(250)
     t.pd()
+
     #draws 8 kewai
     for i in range(8):
         kewai()
@@ -71,20 +72,29 @@ turtle.register_shape("circle", circle)
 turtle.hideturtle()
 drawcircle.clear()
 
-#function to move all perepere to the starting positions
+#sets the coordinates for all the places perepere can move
+putahi = (-50.00,50.00)
+tahi = (-50.00, 250.00)
+rua = (91.42, 191.42)
+toru = (150.00, 50.00)
+wha = (91.42, -91.42)
+rima = (-50.00, -150.00)
+ono = (-191.42,-91.42)
+whitu = (-250.00, 50.00)
+waru = (-191.42, 191.42)
+
+#class of perepere
 class perepere(turtle.Turtle):
-    def startperepere(self, n):
+    #function to move all perepere to the starting positions
+    def startperepere(self, n, p):
         self.hideturtle()
         self.speed(10)
         self.shape("circle")
         self.pu()
-        self.lt(90)
-        self.fd(50)
-        self.rt(45*n)
+        self.goto(putahi)
         self.showturtle()
         self.speed(3)
-        self.fd(150)
-        self.showturtle()
+        self.goto(p)
 
 #creates all perepere pieces and moves them to the starting position
 blackperepere1 = perepere()
@@ -104,44 +114,39 @@ whiteperepere3.fillcolor("white")
 whiteperepere4 = blackperepere1.clone()
 whiteperepere4.fillcolor("white")
 n=1
-blackperepere1.startperepere(n)
+p = (-50.00, 250.00)
+blackperepere1.startperepere(n, p)
 n=n+1
-blackperepere2.startperepere(n)
+p = (91.42, 191.42)
+blackperepere2.startperepere(n, p)
 n=n+1
-blackperepere3.startperepere(n)
+p = (150.00, 50.00)
+blackperepere3.startperepere(n, p)
 n=n+1
-blackperepere4.startperepere(n)
+p = (91.42, -91.42)
+blackperepere4.startperepere(n, p)
 n=n+1
-whiteperepere1.startperepere(n)
+p = (-50.00, -150.00)
+whiteperepere1.startperepere(n, p)
 n=n+1
-whiteperepere2.startperepere(n)
+p = (-191.42,-91.42)
+whiteperepere2.startperepere(n, p)
 n=n+1
-whiteperepere3.startperepere(n)
+p = (-250.00, 50.00)
+whiteperepere3.startperepere(n, p)
 n=n+1
-whiteperepere4.startperepere(n)
+p = (-191.42, 191.42)
+whiteperepere4.startperepere(n, p)
 
-kore = (-50.00,50.00)
-rua = (106.07,156.07)
+# Now everything has been set up;
+# the board is drawn, 
+# all the perepere sprits are set up and in their starting positions, 
+# and all the places a perepere can move have had their coordinates set.
+# Woohoo!
+# The code from this point on is the logic for the actual game playing.
 
-blackperepere1.goto(kore)
-blackperepere2.goto(rua)
 
-# just for testing, makes it so the window doesnt close by itself, the window closes when it is clicked on.
-testscreen.exitonclick()
 
-# Positions of each spot NOPE ACTUALLY ALL THESE ARE WRONG ARGGGGGGGG FUCKKKKKKK
-# kore  (0)  (-50.00,50.00)
-# tahi  (1)  (-0.00,200.00)
-# rua   (2)  (106.07,156.07)
-# toru  (3)  (150.00,50.00)
-# wha   (4)  (106.07,-56.07)
-# rima  (5)  (0.00,-100.00)
-# ono   (6)  (-106.07,-56.07)
-# whitu (7)  (-150.00,50.00)
-# waru  (8)  (-106.07,156.07)
-# so all the above are wrong which sucks. Its because each turtle is oriented differently, for this
-# to work im gonna need all turtles facing in the same direction (ill just go with right cause thats
-# the default) and then ill make them goto the coordinate of each spot (ill have to re-figure out all
-# the spots). But i like the cool animation at the beginning so one by one ill make them invisiable and
-# go to the centre, then make them visible and make them go to their respective spots.
 
+# just for testing, makes it so the window doesnt close by itself.
+screen.exitonclick()
