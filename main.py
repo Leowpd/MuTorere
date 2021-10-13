@@ -3,6 +3,17 @@ import turtle, random, time
 screen = turtle.Screen()
 screen.setup(700, 700)
 
+#sets the coordinates for all the places perepere can move
+putahi = (-50.00,50.00)
+tahi = (-50.00, 250.00)
+rua = (91.42, 191.42)
+toru = (150.00, 50.00)
+wha = (91.42, -91.42)
+rima = (-50.00, -150.00)
+ono = (-191.42,-91.42)
+whitu = (-250.00, 50.00)
+waru = (-191.42, 191.42)
+
 #draws the board
 def drawboard():
     #draws one kewai
@@ -72,21 +83,10 @@ turtle.register_shape("circle", circle)
 turtle.hideturtle()
 drawcircle.clear()
 
-#sets the coordinates for all the places perepere can move
-putahi = (-50.00,50.00)
-tahi = (-50.00, 250.00)
-rua = (91.42, 191.42)
-toru = (150.00, 50.00)
-wha = (91.42, -91.42)
-rima = (-50.00, -150.00)
-ono = (-191.42,-91.42)
-whitu = (-250.00, 50.00)
-waru = (-191.42, 191.42)
-
 #class of perepere
 class perepere(turtle.Turtle):
     #function to move all perepere to the starting positions
-    def startperepere(self, n, p):
+    def startperepere(self, p):
         self.hideturtle()
         self.speed(10)
         self.shape("circle")
@@ -113,30 +113,22 @@ whiteperepere3 = blackperepere1.clone()
 whiteperepere3.fillcolor("white")
 whiteperepere4 = blackperepere1.clone()
 whiteperepere4.fillcolor("white")
-n=1
 p = (-50.00, 250.00)
-blackperepere1.startperepere(n, p)
-n=n+1
+blackperepere1.startperepere(p)
 p = (91.42, 191.42)
-blackperepere2.startperepere(n, p)
-n=n+1
+blackperepere2.startperepere(p)
 p = (150.00, 50.00)
-blackperepere3.startperepere(n, p)
-n=n+1
+blackperepere3.startperepere(p)
 p = (91.42, -91.42)
-blackperepere4.startperepere(n, p)
-n=n+1
+blackperepere4.startperepere(p)
 p = (-50.00, -150.00)
-whiteperepere1.startperepere(n, p)
-n=n+1
+whiteperepere1.startperepere(p)
 p = (-191.42,-91.42)
-whiteperepere2.startperepere(n, p)
-n=n+1
+whiteperepere2.startperepere(p)
 p = (-250.00, 50.00)
-whiteperepere3.startperepere(n, p)
-n=n+1
+whiteperepere3.startperepere(p)
 p = (-191.42, 191.42)
-whiteperepere4.startperepere(n, p)
+whiteperepere4.startperepere(p)
 
 # Now everything has been set up;
 # the board is drawn, 
