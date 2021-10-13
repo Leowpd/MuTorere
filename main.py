@@ -40,7 +40,18 @@ def drawboard():
         t.rt(180)
         t.rt(45)
         t.fd(200)
-
+    t.rt(180)
+    t.fd(245)
+    t.lt(90)
+    t.pd()
+    t.circle(45)
+    t.pu()
+    t.rt(90)
+    t.fd(155)
+    t.lt(90)
+    t.width(1)
+    t.pd()
+    t.circle(200)
 
 
 drawboard()
