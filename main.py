@@ -2,3 +2,5 @@
 print ("ur computer's dumb ")
 
 x = 100000000000000
+
+#okay better actually do something now
