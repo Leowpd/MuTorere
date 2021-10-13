@@ -31,7 +31,15 @@ def drawboard():
     t.fd(250)
     t.pd()
 
-    kewai()
+    #draws 8 kewai
+    for i in range(8):
+        kewai()
+        t.pu()
+        t.rt(172)
+        t.fd(200)
+        t.rt(180)
+        t.rt(45)
+        t.fd(200)
 
 
 
