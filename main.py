@@ -3,16 +3,20 @@ import turtle, random, time
 screen = turtle.Screen()
 screen.setup(700, 700)
 
-#sets the coordinates for all the places perepere can move
-putahi = (-50.00, 50.00)
-tahi = (-50.00, 250.00)
-rua = (91.42, 191.42)
-toru = (150.00, 50.00)
-wha = (91.42, -91.42)
-rima = (-50.00, -150.00)
-ono = (-191.42,-91.42)
-whitu = (-250.00, 50.00)
-waru = (-191.42, 191.42)
+# sets the coordinates for all the places perepere can move
+PUTAHI = (-50.00, 50.00)
+TAHI = (-50.00, 250.00)
+RUA = (91.42, 191.42)
+TORU = (150.00, 50.00)
+WHA = (91.42, -91.42)
+RIMA = (-50.00, -150.00)
+ONO = (-191.42,-91.42)
+WHITU = (-250.00, 50.00)
+WARU = (-191.42, 191.42)
+
+# sets the player colors, this could potentially lead to players choosing their own color.
+P1COLOR = "white"
+P2COLOR = "black"
 
 #draws the board
 def drawboard():
@@ -33,6 +37,7 @@ def drawboard():
         t.fd(10)
         t.pd()
         t.fd(150)
+
     t = turtle.Turtle(visible=False)
     t.width(2)
     t.speed(0)
@@ -83,7 +88,7 @@ turtle.register_shape("circle", circle)
 turtle.hideturtle()
 drawcircle.clear()
 
-#class of perepere
+#class of Perepere
 class Perepere(turtle.Turtle):
     #function to move all perepere to the starting positions
     def startperepere(self, pos, color):
@@ -92,7 +97,7 @@ class Perepere(turtle.Turtle):
         self.speed(10)
         self.shape("circle")
         self.pu()
-        self.goto(putahi)
+        self.goto(PUTAHI)
         self.showturtle()
         self.speed(3)
         self.goto(pos)
@@ -106,14 +111,14 @@ whiteperepere1 = blackperepere1.clone()
 whiteperepere2 = blackperepere1.clone()
 whiteperepere3 = blackperepere1.clone()
 whiteperepere4 = blackperepere1.clone()
-blackperepere1.startperepere((-50.00, 250.00), "black")
-blackperepere2.startperepere((91.42, 191.42), "black")
-blackperepere3.startperepere((150.00, 50.00), "black")
-blackperepere4.startperepere((91.42, -91.42), "black")
-whiteperepere1.startperepere((-50.00, -150.00), "white")
-whiteperepere2.startperepere((-191.42,-91.42), "white")
-whiteperepere3.startperepere((-250.00, 50.00), "white")
-whiteperepere4.startperepere((-191.42, 191.42), "white")
+blackperepere1.startperepere(TAHI, P2COLOR)
+blackperepere2.startperepere(RUA, P2COLOR)
+blackperepere3.startperepere(TORU, P2COLOR)
+blackperepere4.startperepere(WHA, P2COLOR)
+whiteperepere1.startperepere(RIMA, P1COLOR)
+whiteperepere2.startperepere(ONO, P1COLOR)
+whiteperepere3.startperepere(WHITU, P1COLOR)
+whiteperepere4.startperepere(WARU, P1COLOR)
 
 # Now everything has been set up;
 # the board is drawn, 
@@ -121,12 +126,6 @@ whiteperepere4.startperepere((-191.42, 191.42), "white")
 # and all the places a perepere can move have had their coordinates set.
 # Woohoo!
 # The code from this point on is the logic for the actual game playing.
-
-#testing
-blackperepere1.goto(putahi)
-whiteperepere4.goto(tahi)
-blackperepere1.goto(waru)
-whiteperepere1.goto(putahi)
 
 
 
