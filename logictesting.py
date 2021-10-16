@@ -23,8 +23,13 @@ def remove_piece(board, row, col):
     board[row][col] = 0
 
 def is_valid_move(board, row, col):
-    return board[row][col] == 0
+    pass
 
+def find_empty_pos(board):
+    empty_pos = np.where(board == 0)
+    empty_row = empty_pos[0]
+    empty_col = empty_pos[1]
+    return empty_row, empty_col #function that returns two values
 
 board = create_board()
 print(board)
@@ -35,11 +40,17 @@ turn = 0
 while not game_over:
     # Ask for player 1 where to move
     if turn == 0:
+        empty_row, empty_col = find_empty_pos(board)
+        print(empty_row)
+        print(empty_col)
+
+
         row = int(input("Player 1 select row (0-2): "))
         col = int(input("Player 1 select column (0-2): "))
 
         if is_valid_move(board, row, col):
-            move_piece(board, row, col, 1)
+            #move_piece(board, row, col, 1)
+            pass
         else:
             print("invalid move")
 
