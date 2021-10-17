@@ -81,18 +81,18 @@ def winning_move(board, opponent):
     opp_loses = 0
 
     for piece in list_of_opp_pieces:
-        #print(piece)
+        print(piece)
         row = int(piece[0])
         col = int(piece[1])
         if not is_valid_move(row, col, empty_row, empty_col, player=opponent, piece=opponent):
-            #print("haha nope")
+            print("haha nope")
             opp_loses += 1
-            #print("opp_loses", opp_loses)
+            print("opp_loses", opp_loses)
         else:
             print("yup all good")
             pass
 
-    #print("final opp_loses", opp_loses)
+    print("final opp_loses", opp_loses)
     if opp_loses == 4:
         return True
     else:
