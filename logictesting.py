@@ -24,7 +24,27 @@ def create_board():
     # board[1][2] = 2
 
     return board
-    
+
+def take_player_input(player, rowcol):
+    n = 0
+    is_int = False
+    while n == 0:
+        while not is_int:
+            player_input = input("Player " + str(player) + " select " + str(rowcol) + " (1-3): ")
+            try:
+                int(player_input)
+                is_int = True
+            except ValueError:
+                print("That is not a valid entry, please select", rowcol, "1, 2, or 3")
+        player_input = int(player_input)
+
+        if player_input < 1 or player_input > 3:
+            print("That is not a valid entry, please select", rowcol, "1, 2, or 3")
+            is_int = False
+        else:
+            n = 1
+    player_input -= 1
+    return player_input
 
 def move_piece(board, empty_row, empty_col, player):
     board[empty_row][empty_col] = player
@@ -64,14 +84,11 @@ def is_valid_move(row, col, empty_row, empty_col, player, piece):
         return False
         #print("no, you can not move your opponent's piece")
     
-
 def find_empty_pos(board):
     empty_pos = np.where(board == 0)
     empty_row = int(empty_pos[0])
     empty_col = int(empty_pos[1])
     return empty_row, empty_col #function that returns two values
-
-
 
 def winning_move(board, opponent):
     #print(opponent)
@@ -99,9 +116,6 @@ def winning_move(board, opponent):
         return False
 
 
-
-
-
 board = create_board()
 print(board)
 game_over = False
@@ -116,14 +130,14 @@ while not game_over:
         empty_row, empty_col = find_empty_pos(board)
 
 ############## this needs to be improved ###################
-        row = int(input("Player 1 select row (0-2): "))
-        col = int(input("Player 1 select column (0-2): "))
+        row = take_player_input(player, "row")
+        col = take_player_input(player, "column")
         piece = board[row][col]     
 
         while not is_valid_move(row, col, empty_row, empty_col, player, piece):
             print("INVALID MOVEEEE") #testing
-            row = int(input("Player 1 select row (0-2): "))
-            col = int(input("Player 1 select column (0-2): "))
+            row = take_player_input(player, "row")
+            col = take_player_input(player, "column")
             piece = board[row][col]            
             is_valid_move(row, col, empty_row, empty_col, player, piece)
 
@@ -151,14 +165,14 @@ while not game_over:
         empty_row, empty_col = find_empty_pos(board)
 
 ############## this needs to be improved ###################
-        row = int(input("Player 2 select row (0-2): "))
-        col = int(input("Player 2 select column (0-2): "))
+        row = take_player_input(player, "row")
+        col = take_player_input(player, "column")
         piece = board[row][col]     
 
         while not is_valid_move(row, col, empty_row, empty_col, player, piece):
             print("INVALID MOVEEEE") #testing
-            row = int(input("Player 2 select row (0-2): "))
-            col = int(input("Player 2 select column (0-2): "))
+            row = take_player_input(player, "row")
+            col = take_player_input(player, "column")
             piece = board[row][col]            
             is_valid_move(row, col, empty_row, empty_col, player, piece)
 
