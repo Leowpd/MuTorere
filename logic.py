@@ -1,11 +1,6 @@
 import numpy as np
 
-import constants as cn
-
-# function that creates the board
-def create_board():
-    board = np.array(cn.BOARD_SETUP)
-    return board
+import constants as const
 
 
 # function that takes the player's input for row or column
@@ -35,15 +30,16 @@ def take_player_input(player, rowcol):
     return player_input
 
 
+# function that creates the board
+def create_board():
+    board = np.array(const.BOARD_SETUP)
+    return board
+
+
 # function for moving a piece
-def move_piece(board, empty_row, empty_col, player):
+def move_piece(board, row, col, empty_row, empty_col, player):
     # sets the position of the empty space to the player's piece
     board[empty_row][empty_col] = player
-
-
-# function for removing a piece
-def remove_piece(board, row, col):
-    # sets the spot the piece was formally to zero (empty)
     board[row][col] = 0
 
 

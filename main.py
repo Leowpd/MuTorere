@@ -1,10 +1,9 @@
 import turtle
-import random
-import time
 
 import numpy as np
 
-import logic as lg
+import logic
+import gui
 import constants as const
 
 
@@ -14,78 +13,11 @@ screen.setup(700, 700)
 
 
 # sets the player colors, this could potentially lead to players choosing their own color.
-P1COLOR = "white"
-P2COLOR = "black"
+p1color = "white"
+p2color = "black"
 
 
-# function draws the board
-def drawboard():
-    #draws one kewai
-    def kewai():
-        t.pd()
-        t.rt(172)
-        t.fd(150)
-        t.pu()
-        t.fd(10)
-        t.pd()
-        t.rt(98)
-        t.pu()
-        t.fd(44.5)
-        t.pd()
-        t.rt(98)
-        t.pu()
-        t.fd(10)
-        t.pd()
-        t.fd(150)
-
-    t = turtle.Turtle(visible=False)
-    t.width(2)
-    t.speed(0)
-    t.color("black")
-    t.lt(90)
-    t.pu()
-    t.fd(250)
-    t.pd()
-
-    #draws 8 kewai
-    for i in range(8):
-        kewai()
-        t.pu()
-        t.rt(172)
-        t.fd(200)
-        t.rt(180)
-        t.rt(45)
-        t.fd(200)
-    t.rt(180)
-    t.fd(245)
-    t.lt(90)
-    t.pd()
-    t.circle(45)
-    t.pu()
-    t.rt(90)
-    t.fd(155)
-    t.lt(90)
-    t.width(1)
-    t.pd()
-    t.circle(200)
-
-
-#class of Perepere
-class Perepere(turtle.Turtle):
-    #function to move all perepere to the starting positions
-    def startperepere(self, pos, color):
-        self.fillcolor(color)
-        self.hideturtle()
-        self.speed(10)
-        self.shape("circle")
-        self.pu()
-        self.goto(const.POSITIONS[(1,1)])
-        self.showturtle()
-        self.speed(3)
-        self.goto(pos)
-
-
-drawboard()
+gui.drawboard()
 
 #draws the shape of the perepere (a circle) that all the perepere turtles will use
 drawcircle = turtle.Turtle()
@@ -106,22 +38,28 @@ drawcircle.clear()
 
 
 #creates all perepere pieces and moves them to the starting position
-blackperepere1 = Perepere()
-blackperepere2 = blackperepere1.clone()
-blackperepere3 = blackperepere1.clone()
-blackperepere4 = blackperepere1.clone()
-whiteperepere1 = blackperepere1.clone()
-whiteperepere2 = blackperepere1.clone()
-whiteperepere3 = blackperepere1.clone()
-whiteperepere4 = blackperepere1.clone()
-blackperepere1.startperepere(const.POSITIONS[(0,1)], P2COLOR)
-blackperepere2.startperepere(const.POSITIONS[(0,2)], P2COLOR)
-blackperepere3.startperepere(const.POSITIONS[(1,2)], P2COLOR)
-blackperepere4.startperepere(const.POSITIONS[(2,2)], P2COLOR)
-whiteperepere1.startperepere(const.POSITIONS[(2,1)], P1COLOR)
-whiteperepere2.startperepere(const.POSITIONS[(2,0)], P1COLOR)
-whiteperepere3.startperepere(const.POSITIONS[(1,0)], P1COLOR)
-whiteperepere4.startperepere(const.POSITIONS[(0,0)], P1COLOR)
+plyr2perepere1 = gui.Perepere()
+plyr2perepere2 = plyr2perepere1.clone()
+plyr2perepere3 = plyr2perepere1.clone()
+plyr2perepere4 = plyr2perepere1.clone()
+plyr1perepere1 = plyr2perepere1.clone()
+plyr1perepere2 = plyr2perepere1.clone()
+plyr1perepere3 = plyr2perepere1.clone()
+plyr1perepere4 = plyr2perepere1.clone()
+plyr2perepere1.start_perepere(const.POSITIONS[(0,1)], p2color)
+plyr2perepere2.start_perepere(const.POSITIONS[(0,2)], p2color)
+plyr2perepere3.start_perepere(const.POSITIONS[(1,2)], p2color)
+plyr2perepere4.start_perepere(const.POSITIONS[(2,2)], p2color)
+plyr1perepere1.start_perepere(const.POSITIONS[(2,1)], p1color)
+plyr1perepere2.start_perepere(const.POSITIONS[(2,0)], p1color)
+plyr1perepere3.start_perepere(const.POSITIONS[(1,0)], p1color)
+plyr1perepere4.start_perepere(const.POSITIONS[(0,0)], p1color)
+
+list_of_perepere = [plyr1perepere1, plyr1perepere2,
+                    plyr1perepere3, plyr1perepere4,
+                    plyr2perepere1, plyr2perepere2,
+                    plyr2perepere3, plyr2perepere4
+                    ]
 
 
 # Now everything has been set up;
@@ -134,7 +72,123 @@ whiteperepere4.startperepere(const.POSITIONS[(0,0)], P1COLOR)
 
 
 
+# creates the board, prints the board, declares the game is not over, and sets it to player 1's turn
+board = logic.create_board()
+print(board)
+game_over = False
+turn = 0
+
+while not game_over:
+    # Ask player 1 what piece to move
+    if turn == 0:
+        # declares which player is playing, which player is the opponent, and finds the empty space
+        player = 1
+        opponent = 2
+        empty_row, empty_col = logic.find_empty_pos(board)
+
+        # asks the player which piece they want to move, and finds what piece that is
+        row = logic.take_player_input(player, "row")
+        col = logic.take_player_input(player, "column")
+        piece_num = board[row][col]
+
+        # checks if a move is valid before moving the player's piece
+        if logic.is_valid_move(board, row, col, empty_row, empty_col, player, piece_num):
+            logic.move_piece(board, row, col, empty_row, empty_col, player)
+
+            list_of_perepere_coords = [plyr1perepere1.pos(),
+                                       plyr1perepere2.pos(),
+                                       plyr1perepere3.pos(),
+                                       plyr1perepere4.pos(),
+                                       plyr2perepere1.pos(),
+                                       plyr2perepere2.pos(),
+                                       plyr2perepere3.pos(),
+                                       plyr2perepere4.pos()
+                                       ]
+            gui.move_perepere(list_of_perepere, list_of_perepere_coords, row, col, empty_row, empty_col)
+
+            # checks if a player has done a winning move, and if so ends the game
+            if logic.winning_move(board, opponent):
+                print("PLAYER 1 WINS!!")
+                game_over = True
+
+        # if a move is not valid, asks the player to make a different move and resets their turn
+        else:
+            print("Sorry, that move was not valid, please try again")
+            turn -= 1
 
 
-# just for testing, makes it so the window doesnt close by itself.
-screen.exitonclick()
+    # Ask player 2 what piece to move
+    else:
+        # declares which player is playing, which player is the opponent, and finds the empty space
+        player = 2
+        opponent = 1
+        empty_row, empty_col = logic.find_empty_pos(board)
+
+        # asks the player which piece they want to move, and finds what piece that is
+        row = logic.take_player_input(player, "row")
+        col = logic.take_player_input(player, "column")
+        piece_num = board[row][col]
+
+        # checks if a move is valid before moving the player's piece and then removing the original piece
+        if logic.is_valid_move(board, row, col, empty_row, empty_col, player, piece_num):
+            logic.move_piece(board, row, col, empty_row, empty_col, player)
+
+            list_of_perepere_coords = [plyr1perepere1.pos(),
+                                       plyr1perepere2.pos(),
+                                       plyr1perepere3.pos(),
+                                       plyr1perepere4.pos(),
+                                       plyr2perepere1.pos(),
+                                       plyr2perepere2.pos(),
+                                       plyr2perepere3.pos(),
+                                       plyr2perepere4.pos()
+                                       ]
+            gui.move_perepere(list_of_perepere, list_of_perepere_coords, row, col, empty_row, empty_col)
+
+            # checks if a player has done a winning move, and if so ends the game
+            if logic.winning_move(board, opponent):
+                print("PLAYER 2 WINS!!")
+                game_over = True
+
+        # if a move is not valid, asks the player to make a different move and resets their turn
+        else:
+            print("Sorry, that move was not valid, please try again")
+            turn -= 1
+
+    # prints the board, so the players can see the board at the beginning of each turn
+    print(board)
+
+    # increments the turn by 1 and then uses mod division so that the players' turns alternate
+    turn += 1
+    turn = turn % 2
+
+
+
+
+
+
+# thing_coords = turtle.getpos()
+# search POSITION dictonary for thing_coords
+# shows its position on the array
+#
+# for example:
+#
+# (turtle is at the putahi)
+#
+# for perepere in list_of_perepere:
+#    thing_coords = turtle.getpos()
+#    print(thing_coords)
+#    OUTPUT: (-50.00, 50.00)
+#    thing_pos = (thing that searches dictonary)
+#    print(thing_pos)
+#    OUTPUT: (1,1)
+#    If thing_pos == row, col:
+#       turtle.goto(empty_row, empty_col)
+#       break
+
+
+
+# for pos in const.POSITIONS.items():
+#     if pos[1] == (-50.00, -150.00):
+#         yesss = (pos[0])
+
+# print(yesss)
