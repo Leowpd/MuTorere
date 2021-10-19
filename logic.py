@@ -1,11 +1,10 @@
 import numpy as np
 
-BOARD_SETUP = [[1., 2., 2.], [1., 0., 2.], [1., 1., 2.]]
-
+import constants as cn
 
 # function that creates the board
 def create_board():
-    board = np.array(BOARD_SETUP)
+    board = np.array(cn.BOARD_SETUP)
     return board
 
 
@@ -141,71 +140,3 @@ def winning_move(board, opponent):
     else:
         return False
 
-
-# creates the board, prints the board, declares the game is not over, and sets it to player 1's turn
-board = create_board()
-print(board)
-game_over = False
-turn = 0
-
-while not game_over:
-    # Ask player 1 what piece to move
-    if turn == 0:
-        # declares which player is playing, which player is the opponent, and finds the empty space
-        player = 1
-        opponent = 2
-        empty_row, empty_col = find_empty_pos(board)
-
-        # asks the player which piece they want to move, and finds what piece that is
-        row = take_player_input(player, "row")
-        col = take_player_input(player, "column")
-        piece_num = board[row][col]
-
-        # checks if a move is valid before moving the player's piece and then removing the original piece
-        if is_valid_move(board, row, col, empty_row, empty_col, player, piece_num):
-            move_piece(board, empty_row, empty_col, player)
-            remove_piece(board, row, col)
-
-            # checks if a player has done a winning move, and if so ends the game
-            if winning_move(board, opponent):
-                print("PLAYER 2 WINS!!")
-                game_over = True
-
-        # if a move is not valid, asks the player to make a different move and resets their turn
-        else:
-            print("Sorry, that move was not valid, please try again")
-            turn -= 1
-
-    # Ask player 2 what piece to move
-    else:
-        # declares which player is playing, which player is the opponent, and finds the empty space
-        player = 2
-        opponent = 1
-        empty_row, empty_col = find_empty_pos(board)
-
-        # asks the player which piece they want to move, and finds what piece that is
-        row = take_player_input(player, "row")
-        col = take_player_input(player, "column")
-        piece_num = board[row][col]
-
-        # checks if a move is valid before moving the player's piece and then removing the original piece
-        if is_valid_move(board, row, col, empty_row, empty_col, player, piece_num):
-            move_piece(board, empty_row, empty_col, player)
-            remove_piece(board, row, col)
-
-            # checks if a player has done a winning move, and if so ends the game
-            if winning_move(board, opponent):
-                print("PLAYER 2 WINS!!")
-                game_over = True
-
-        # if a move is not valid, asks the player to make a different move and resets their turn
-        else:
-            print("Sorry, that move was not valid, please try again")
-            turn -= 1
-
-    # prints the board, so the players can see the board at the beginning of each turn
-    print(board)
-
-    # increments the turn by 1 and then uses mod division so that the players' turns alternate
-    turn += 1
-    turn = turn % 2
