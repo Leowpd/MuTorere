@@ -53,6 +53,7 @@ def drawboard():
     t.pd()
     t.circle(200)
 
+
 #class of Perepere
 class Perepere(turtle.Turtle):
     #function to move all perepere to the starting positions

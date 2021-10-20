@@ -17,6 +17,48 @@ p1color = "white"
 p2color = "black"
 
 
+def player_turn(player, opponent, turn):
+    empty_row, empty_col = logic.find_empty_pos(board)
+
+    # asks the player which piece they want to move, and finds what piece that is
+    row = logic.take_player_input(player, "row")
+    col = logic.take_player_input(player, "column")
+    piece_num = board[row][col]
+
+    # checks if a move is valid before moving the player's piece
+    if logic.is_valid_move(board, row, col, empty_row, empty_col, player, piece_num):
+        logic.move_piece(board, row, col, empty_row, empty_col, player)
+
+        list_of_perepere_coords = [plyr1perepere1.pos(),
+                                   plyr1perepere2.pos(),
+                                   plyr1perepere3.pos(),
+                                   plyr1perepere4.pos(),
+                                   plyr2perepere1.pos(),
+                                   plyr2perepere2.pos(),
+                                   plyr2perepere3.pos(),
+                                   plyr2perepere4.pos()
+                                   ]
+        gui.move_perepere(list_of_perepere, list_of_perepere_coords, row, col, empty_row, empty_col)
+
+        turn = turn
+
+        # checks if a player has done a winning move, and if so ends the game
+        if logic.winning_move(board, opponent):
+            print("PLAYER ", player, " WINS!!")
+            game_over = True
+        else:
+            game_over = False
+
+    # if a move is not valid, asks the player to make a different move and resets their turn
+    else:
+        print("Sorry, that move was not valid, please try again")
+        turn -= 1
+        game_over = False
+    return turn, game_over
+
+
+
+
 gui.drawboard()
 
 #draws the shape of the perepere (a circle) that all the perepere turtles will use
@@ -84,37 +126,7 @@ while not game_over:
         # declares which player is playing, which player is the opponent, and finds the empty space
         player = 1
         opponent = 2
-        empty_row, empty_col = logic.find_empty_pos(board)
-
-        # asks the player which piece they want to move, and finds what piece that is
-        row = logic.take_player_input(player, "row")
-        col = logic.take_player_input(player, "column")
-        piece_num = board[row][col]
-
-        # checks if a move is valid before moving the player's piece
-        if logic.is_valid_move(board, row, col, empty_row, empty_col, player, piece_num):
-            logic.move_piece(board, row, col, empty_row, empty_col, player)
-
-            list_of_perepere_coords = [plyr1perepere1.pos(),
-                                       plyr1perepere2.pos(),
-                                       plyr1perepere3.pos(),
-                                       plyr1perepere4.pos(),
-                                       plyr2perepere1.pos(),
-                                       plyr2perepere2.pos(),
-                                       plyr2perepere3.pos(),
-                                       plyr2perepere4.pos()
-                                       ]
-            gui.move_perepere(list_of_perepere, list_of_perepere_coords, row, col, empty_row, empty_col)
-
-            # checks if a player has done a winning move, and if so ends the game
-            if logic.winning_move(board, opponent):
-                print("PLAYER 1 WINS!!")
-                game_over = True
-
-        # if a move is not valid, asks the player to make a different move and resets their turn
-        else:
-            print("Sorry, that move was not valid, please try again")
-            turn -= 1
+        turn, game_over = player_turn(player, opponent, turn)
 
 
     # Ask player 2 what piece to move
@@ -122,37 +134,8 @@ while not game_over:
         # declares which player is playing, which player is the opponent, and finds the empty space
         player = 2
         opponent = 1
-        empty_row, empty_col = logic.find_empty_pos(board)
+        turn, game_over = player_turn(player, opponent, turn)
 
-        # asks the player which piece they want to move, and finds what piece that is
-        row = logic.take_player_input(player, "row")
-        col = logic.take_player_input(player, "column")
-        piece_num = board[row][col]
-
-        # checks if a move is valid before moving the player's piece and then removing the original piece
-        if logic.is_valid_move(board, row, col, empty_row, empty_col, player, piece_num):
-            logic.move_piece(board, row, col, empty_row, empty_col, player)
-
-            list_of_perepere_coords = [plyr1perepere1.pos(),
-                                       plyr1perepere2.pos(),
-                                       plyr1perepere3.pos(),
-                                       plyr1perepere4.pos(),
-                                       plyr2perepere1.pos(),
-                                       plyr2perepere2.pos(),
-                                       plyr2perepere3.pos(),
-                                       plyr2perepere4.pos()
-                                       ]
-            gui.move_perepere(list_of_perepere, list_of_perepere_coords, row, col, empty_row, empty_col)
-
-            # checks if a player has done a winning move, and if so ends the game
-            if logic.winning_move(board, opponent):
-                print("PLAYER 2 WINS!!")
-                game_over = True
-
-        # if a move is not valid, asks the player to make a different move and resets their turn
-        else:
-            print("Sorry, that move was not valid, please try again")
-            turn -= 1
 
     # prints the board, so the players can see the board at the beginning of each turn
     print(board)
