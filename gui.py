@@ -1,6 +1,5 @@
 import turtle
 
-import logic
 import constants as const
 
 # function draws the board
@@ -56,6 +55,7 @@ def draw_board():
     t.pd()
     t.circle(200)
 
+    # Places all the labels for the positions
     t.setheading(180)
     t.pu()
     t.goto(const.LABELS["Tahi"])
@@ -92,20 +92,16 @@ class Perepere(turtle.Turtle):
         self.turtle.speed(3)
         self.turtle.goto(pos)
 
+    # function for Perepere to get coords
     def get_coords(self):
         coords = self.turtle.pos()
         return coords
 
+    # function for Perepere to go to a position
     def go_to_pos(self, pos):
         self.turtle.goto(pos)
 
-    def send_perepere_to_start(self):
-        n = 0
-        for pos in const.POSITIONS:
-            n += 1
-            self.turtle.goto(const.POSITIONS[pos])
-
-
+# function that moves the selected perepere to the empty space
 def move_perepere(
     list_of_perepere, list_of_perepere_coords, row, col, empty_row, empty_col
 ):

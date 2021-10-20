@@ -1,10 +1,11 @@
+# file with all the constants
+
+# Constants for Main
 SCREEN_WIDTH = 700
 SCREEN_HEIGHT = 700
 
-BOARD_SETUP = [[1.0, 2.0, 2.0], [1.0, 0.0, 2.0], [1.0, 1.0, 2.0]]
 
-
-ERROR_MESSAGE = "That is not a valid entry, please select position 0-8"
+ERROR_MESSAGE = "That is not a valid entry, please select 0-8"
 
 
 LABEL_TO_POS = {
@@ -19,6 +20,12 @@ LABEL_TO_POS = {
     8: (0, 0),
 }
 
+
+P1COLOR = "white"
+P2COLOR = "black"
+
+
+# Constants for GUI
 
 LABELS = {
     "Putahi": (115.00, -230.00),
@@ -44,3 +51,8 @@ POSITIONS = {
     (1, 0): (-250.00, 50.00),  # WHITU
     (0, 0): (-191.42, 191.42),  # WARU
 }
+
+
+# Constants for logic:
+
+BOARD_SETUP = [[1.0, 2.0, 2.0], [1.0, 0.0, 2.0], [1.0, 1.0, 2.0]]
