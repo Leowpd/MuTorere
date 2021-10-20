@@ -1,6 +1,6 @@
 import numpy as np
 
-BOARD_SETUP = [[1., 2., 2.], [1., 0., 2.], [1., 1., 2.]]
+BOARD_SETUP = [[1.0, 2.0, 2.0], [1.0, 0.0, 2.0], [1.0, 1.0, 2.0]]
 
 
 # function that creates the board
@@ -13,11 +13,13 @@ def create_board():
 def take_player_input(player, rowcol):
     n = 0
     is_int = False
-    while n == 0:   # loops until the player makes a valid entry
+    while n == 0:  # loops until the player makes a valid entry
 
-        while not is_int:   # loops until a player enters an interger
-            player_input = input("Player " + str(player) + " select " + str(rowcol) + " (1-3): ")
-            try:    # uses try except to reject non-interger entries and asks the player to try again
+        while not is_int:  # loops until a player enters an interger
+            player_input = input(
+                "Player " + str(player) + " select " + str(rowcol) + " (1-3): "
+            )
+            try:  # uses try except to reject non-interger entries and asks the player to try again
                 int(player_input)
                 is_int = True
             except ValueError:
@@ -32,7 +34,7 @@ def take_player_input(player, rowcol):
         else:
             # ends the loops when the player makes a valid entry
             n = 1
-    player_input -= 1   # reduces player input by 1 as the rest of the logic uses the board's rows and columns as (0, 1, 2) not (1, 2, 3)
+    player_input -= 1  # reduces player input by 1 as the rest of the logic uses the board's rows and columns as (0, 1, 2) not (1, 2, 3)
     return player_input
 
 
@@ -105,7 +107,7 @@ def is_valid_move(board, row, col, empty_row, empty_col, player, piece_num):
         # this is here so if in the future I want to add specific error messages for why an input doesn't work, it is easy. This increases the flexibility of the program.
     else:
         return False
-            # if it gets to here the player has selected their oppenent's piece, which of course is not valid
+        # if it gets to here the player has selected their oppenent's piece, which of course is not valid
 
 
 # function for finding the empty position on the board
@@ -132,7 +134,9 @@ def winning_move(board, opponent):
         row = int(piece[0])
         col = int(piece[1])
         # calls the is_valid_move function to check if that piece is able to move, if not opp_loses is incremented by 1
-        if not is_valid_move(board, row, col, empty_row, empty_col, player=opponent, piece_num=opponent):
+        if not is_valid_move(
+            board, row, col, empty_row, empty_col, player=opponent, piece_num=opponent
+        ):
             opp_loses += 1
 
     # if all four of the opponent's pieces are unable to be moved, winning_move returns True, otherwise the function returns False

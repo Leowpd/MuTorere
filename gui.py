@@ -5,7 +5,7 @@ import constants as const
 
 # function draws the board
 def drawboard():
-    #draws one kewai
+    # draws one kewai
     def kewai():
         t.pd()
         t.rt(172)
@@ -32,7 +32,7 @@ def drawboard():
     t.fd(250)
     t.pd()
 
-    #draws 8 kewai
+    # draws 8 kewai
     for i in range(8):
         kewai()
         t.pu()
@@ -55,7 +55,7 @@ def drawboard():
     t.circle(200)
 
 
-#class of Perepere
+# class of Perepere
 class Perepere(turtle.Turtle):
     def __init__(self, pos, color):
         self.turtle = turtle.Turtle()
@@ -64,7 +64,7 @@ class Perepere(turtle.Turtle):
         self.turtle.speed(10)
         self.turtle.shape("circle")
         self.turtle.pu()
-        self.turtle.goto(const.POSITIONS[(1,1)])
+        self.turtle.goto(const.POSITIONS[(1, 1)])
         self.turtle.showturtle()
         self.turtle.speed(3)
         self.turtle.goto(pos)
@@ -77,14 +77,12 @@ class Perepere(turtle.Turtle):
         self.turtle.goto(pos)
 
 
-def move_perepere(list_of_perepere, list_of_perepere_coords, row, col, empty_row, empty_col):
+def move_perepere(
+    list_of_perepere, list_of_perepere_coords, row, col, empty_row, empty_col
+):
     n = -1
     for coord in list_of_perepere_coords:
         n += 1
-        if coord == const.POSITIONS[(row,col)]:
+        if coord == const.POSITIONS[(row, col)]:
             (list_of_perepere[n]).go_to_pos(const.POSITIONS[(empty_row, empty_col)])
             break
-
-
-
-
