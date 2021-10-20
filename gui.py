@@ -76,6 +76,8 @@ def draw_board():
     t.write("Waru (8)", font=("Arial", 16, "normal"))
     t.goto(const.LABELS["Putahi"])
     t.write("Pūtahi/Centre (0)", font=("Arial", 16, "normal"))
+    t.goto(const.LABELS["Plyr Clrs"])
+    t.write("Player 1: White\nPlayer 2: Black", font=("Arial", 20, "normal"))
 
 
 # class of Perepere
