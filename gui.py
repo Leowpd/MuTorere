@@ -4,7 +4,7 @@ import logic
 import constants as const
 
 # function draws the board
-def drawboard():
+def draw_board():
     # draws one kewai
     def kewai():
         t.pd()
@@ -23,6 +23,7 @@ def drawboard():
         t.pd()
         t.fd(150)
 
+    # sets up the turtle used for drawing the board
     t = turtle.Turtle(visible=False)
     t.width(2)
     t.speed(0)
@@ -41,6 +42,7 @@ def drawboard():
         t.rt(180)
         t.rt(45)
         t.fd(200)
+    # finished off the board
     t.rt(180)
     t.fd(245)
     t.lt(90)
@@ -53,6 +55,27 @@ def drawboard():
     t.width(1)
     t.pd()
     t.circle(200)
+
+    t.setheading(180)
+    t.pu()
+    t.goto(const.LABELS["Tahi"])
+    t.write("Tahi (1)", font=("Arial", 16, "normal"))
+    t.goto(const.LABELS["Rua"])
+    t.write("Rua (2)", font=("Arial", 16, "normal"))
+    t.goto(const.LABELS["Toru"])
+    t.write("Toru (3)", font=("Arial", 16, "normal"))
+    t.goto(const.LABELS["Wha"])
+    t.write("Whā (4)", font=("Arial", 16, "normal"))
+    t.goto(const.LABELS["Rima"])
+    t.write("Rima (5)", font=("Arial", 16, "normal"))
+    t.goto(const.LABELS["Ono"])
+    t.write("Ono (6)", font=("Arial", 16, "normal"))
+    t.goto(const.LABELS["Whitu"])
+    t.write("Whitu (7)", font=("Arial", 16, "normal"))
+    t.goto(const.LABELS["Waru"])
+    t.write("Waru (8)", font=("Arial", 16, "normal"))
+    t.goto(const.LABELS["Putahi"])
+    t.write("Pūtahi/Centre (0)", font=("Arial", 16, "normal"))
 
 
 # class of Perepere
@@ -75,6 +98,12 @@ class Perepere(turtle.Turtle):
 
     def go_to_pos(self, pos):
         self.turtle.goto(pos)
+
+    def send_perepere_to_start(self):
+        n = 0
+        for pos in const.POSITIONS:
+            n += 1
+            self.turtle.goto(const.POSITIONS[pos])
 
 
 def move_perepere(
