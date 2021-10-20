@@ -1,5 +1,6 @@
 import turtle
 
+import logic
 import constants as const
 
 # function draws the board
@@ -56,17 +57,24 @@ def drawboard():
 
 #class of Perepere
 class Perepere(turtle.Turtle):
-    #function to move all perepere to the starting positions
-    def start_perepere(self, pos, color):
-        self.fillcolor(color)
-        self.hideturtle()
-        self.speed(10)
-        self.shape("circle")
-        self.pu()
-        self.goto(const.POSITIONS[(1,1)])
-        self.showturtle()
-        self.speed(3)
-        self.goto(pos)
+    def __init__(self, pos, color):
+        self.turtle = turtle.Turtle()
+        self.turtle.fillcolor(color)
+        self.turtle.hideturtle()
+        self.turtle.speed(10)
+        self.turtle.shape("circle")
+        self.turtle.pu()
+        self.turtle.goto(const.POSITIONS[(1,1)])
+        self.turtle.showturtle()
+        self.turtle.speed(3)
+        self.turtle.goto(pos)
+
+    def get_coords(self):
+        coords = self.turtle.pos()
+        return coords
+
+    def go_to_pos(self, pos):
+        self.turtle.goto(pos)
 
 
 def move_perepere(list_of_perepere, list_of_perepere_coords, row, col, empty_row, empty_col):
@@ -74,7 +82,7 @@ def move_perepere(list_of_perepere, list_of_perepere_coords, row, col, empty_row
     for coord in list_of_perepere_coords:
         n += 1
         if coord == const.POSITIONS[(row,col)]:
-            (list_of_perepere[n]).goto(const.POSITIONS[(empty_row, empty_col)])
+            (list_of_perepere[n]).go_to_pos(const.POSITIONS[(empty_row, empty_col)])
             break
 
 

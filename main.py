@@ -10,6 +10,7 @@ import constants as const
 #sets up screen
 screen = turtle.Screen()
 screen.setup(700, 700)
+screen.title("Mū Tōrere")
 
 
 # sets the player colors, this could potentially lead to players choosing their own color.
@@ -29,14 +30,14 @@ def player_turn(player, opponent, turn):
     if logic.is_valid_move(board, row, col, empty_row, empty_col, player, piece_num):
         logic.move_piece(board, row, col, empty_row, empty_col, player)
 
-        list_of_perepere_coords = [plyr1perepere1.pos(),
-                                   plyr1perepere2.pos(),
-                                   plyr1perepere3.pos(),
-                                   plyr1perepere4.pos(),
-                                   plyr2perepere1.pos(),
-                                   plyr2perepere2.pos(),
-                                   plyr2perepere3.pos(),
-                                   plyr2perepere4.pos()
+        list_of_perepere_coords = [plyr1perepere1.get_coords(),
+                                   plyr1perepere2.get_coords(),
+                                   plyr1perepere3.get_coords(),
+                                   plyr1perepere4.get_coords(),
+                                   plyr2perepere1.get_coords(),
+                                   plyr2perepere2.get_coords(),
+                                   plyr2perepere3.get_coords(),
+                                   plyr2perepere4.get_coords()
                                    ]
         gui.move_perepere(list_of_perepere, list_of_perepere_coords, row, col, empty_row, empty_col)
 
@@ -80,36 +81,22 @@ drawcircle.clear()
 
 
 #creates all perepere pieces and moves them to the starting position
-plyr2perepere1 = gui.Perepere()
-plyr2perepere2 = plyr2perepere1.clone()
-plyr2perepere3 = plyr2perepere1.clone()
-plyr2perepere4 = plyr2perepere1.clone()
-plyr1perepere1 = plyr2perepere1.clone()
-plyr1perepere2 = plyr2perepere1.clone()
-plyr1perepere3 = plyr2perepere1.clone()
-plyr1perepere4 = plyr2perepere1.clone()
-plyr2perepere1.start_perepere(const.POSITIONS[(0,1)], p2color)
-plyr2perepere2.start_perepere(const.POSITIONS[(0,2)], p2color)
-plyr2perepere3.start_perepere(const.POSITIONS[(1,2)], p2color)
-plyr2perepere4.start_perepere(const.POSITIONS[(2,2)], p2color)
-plyr1perepere1.start_perepere(const.POSITIONS[(2,1)], p1color)
-plyr1perepere2.start_perepere(const.POSITIONS[(2,0)], p1color)
-plyr1perepere3.start_perepere(const.POSITIONS[(1,0)], p1color)
-plyr1perepere4.start_perepere(const.POSITIONS[(0,0)], p1color)
+plyr2perepere1 = gui.Perepere(const.POSITIONS[(0,1)], p2color)
+plyr2perepere2 = gui.Perepere(const.POSITIONS[(0,2)], p2color)
+plyr2perepere3 = gui.Perepere(const.POSITIONS[(1,2)], p2color)
+plyr2perepere4 = gui.Perepere(const.POSITIONS[(2,2)], p2color)
+plyr1perepere1 = gui.Perepere(const.POSITIONS[(2,1)], p1color)
+plyr1perepere2 = gui.Perepere(const.POSITIONS[(2,0)], p1color)
+plyr1perepere3 = gui.Perepere(const.POSITIONS[(1,0)], p1color)
+plyr1perepere4 = gui.Perepere(const.POSITIONS[(0,0)], p1color)
+
+
 
 list_of_perepere = [plyr1perepere1, plyr1perepere2,
                     plyr1perepere3, plyr1perepere4,
                     plyr2perepere1, plyr2perepere2,
                     plyr2perepere3, plyr2perepere4
                     ]
-
-
-# Now everything has been set up;
-# the board is drawn, 
-# all the perepere sprits are set up and in their starting positions, 
-# and all the places a perepere can move have had their coordinates set.
-# Woohoo!
-# The code from this point on is the logic for the actual game playing.
 
 
 
@@ -146,7 +133,7 @@ while not game_over:
 
 
 
-
+turtle.mainloop()
 
 
 # thing_coords = turtle.getpos()
